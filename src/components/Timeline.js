@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import Skeleton from 'react-loading-skeleton';
 import usePhotos from '../hooks/usePhotos';
+import useUser from '../hooks/useUser';
 import Post from "./Post";
 const Timeline = () => {
 
-    const {photos} = usePhotos();
+    const photos = usePhotos();
 
     return (
         <div className = "container col-span-2">

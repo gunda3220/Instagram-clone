@@ -1,17 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {updateFollowing,updateFollowers} from "../../services/firebase";
+import {updateFollowing,updateFollowers, getUserByUserId} from "../../services/firebase";
+import UserContext from "../../context/user";
+import useUser from '../../hooks/useUser';
 
 const SuggestedProfile = ({spDocId,username,profileId,userId,activeUserDocId}) => {
 
     const [followed,setFollowed] = useState(false);
 
+    const {activeUserObject,setActiveUserObject} = useContext(UserContext);
+
+    const getUserObject = async(id) =>{
+        let userObject = await getUserByUserId(id);
+        setActiveUserObject(userObject);
+    } 
+
     const handleFollowUser = async() => {
         setFollowed(true);
         await updateFollowing(activeUserDocId,profileId,false);
-
-        await updateFollowers(spDocId,userId,false)
+        await updateFollowers(spDocId,userId,false);
+        getUserObject(activeUserObject.userId);
     } 
 
     return !followed?

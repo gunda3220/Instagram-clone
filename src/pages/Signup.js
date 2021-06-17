@@ -35,6 +35,7 @@ const Signup = () => {
                     fullName,
                     emailAddress:emailAddress.toLowerCase(),
                     following:[],
+                    followers:[],
                     dateCreated:Date.now()
                 })
                 history.push(ROUTES.DASHBOARD)
@@ -47,6 +48,7 @@ const Signup = () => {
             }
         }
         else{
+            setUserName('');
             setError("That username is already taken, please try another");
         }
     };

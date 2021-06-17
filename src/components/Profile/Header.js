@@ -1,17 +1,20 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import Skeleton from 'react-loading-skeleton';
 import PropTypes from 'prop-types';
 import useUser from "../../hooks/useUser";
-import {isUserFollowingProfile,toggleFollow} from "../../services/firebase";
+import {getUserByUserId, isUserFollowingProfile,toggleFollow} from "../../services/firebase";
 import Photos from './Photos';
+import UserContext from '../../context/user';
 
 const Header = ({photosCount,profile:{
    docId:profileDocId,userId:profileUserId,fullName,following,followers,username:profileUsername
 },followerCount,setFollowerCount}) => {
 
     const {user} = useUser();
+    
     const [isFollowingProfile,setIsFollowingProfile] = useState(false);
     const activeBtnFollow = user.username && user.username !== profileUsername;
+
 
     const handleToggleFollow = async() =>{
         setIsFollowingProfile(isFollowingProfile => !isFollowingProfile);
@@ -26,11 +29,13 @@ const Header = ({photosCount,profile:{
          const isFollowing = await isUserFollowingProfile(user.username,profileUserId);
          setIsFollowingProfile(isFollowing);
      };
+     
      if(user.username && profileUserId)
      {
         isLoggedInUserFollowingProfile(); 
      }   
     },[user.username,profileUserId])
+
 
     return (
         <div className = "grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">

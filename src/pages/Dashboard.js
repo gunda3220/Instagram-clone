@@ -3,14 +3,18 @@ import Header from "../components/Header";
 import Timeline from "../components/Timeline";
 import Sidebar from "../components/Sidebar/";
 import UserContext from "../context/user";
+import useUser from '../hooks/useUser';
 
 const Dashboard = () => {
 
     const {user} = useContext(UserContext);
 
+    const {user:userObject} = useUser();
+
     useEffect(() => {
         document.title = "Dashboard";
-    },[])
+    },[]);
+
     return (
         <div className = "bg-gray-background">
             <Header />

@@ -49,8 +49,7 @@ const Header = () => {
                             </Link>
                             <Link to ={ROUTES.SIGN_UP} className = "mx-2">
                                 <button type = "button" className = "font-bold text-sm rounded text-blue-medium w-20 h-8">Sign Up</button>
-                            </Link>
-                            
+                            </Link>                          
                             </>
                         )                        
                         }
